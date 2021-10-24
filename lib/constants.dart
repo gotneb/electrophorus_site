@@ -25,3 +25,12 @@ const title = TextStyle(
 const download = TextStyle(
   letterSpacing: 1.2,
 );
+
+const lyrics = TextStyle(
+  color: Colors.grey,
+  fontSize: 18,
+  letterSpacing: 1.3,
+);
+// Duration
+const duration = Duration(seconds: 3);
+const pause = Duration(seconds: 5);
