@@ -31,6 +31,7 @@ const lyrics = TextStyle(
   fontSize: 18,
   letterSpacing: 1.3,
 );
+
 // Duration
 const duration = Duration(seconds: 3);
 const pause = Duration(seconds: 5);
