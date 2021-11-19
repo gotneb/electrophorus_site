@@ -35,3 +35,19 @@ const lyrics = TextStyle(
 // Duration
 const duration = Duration(seconds: 3);
 const pause = Duration(seconds: 5);
+
+const betaStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 30,
+  letterSpacing: 2,
+);
+
+const buildStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 17,
+);
+
+const emphasis = TextStyle(
+  color: Colors.blue,
+  fontWeight: FontWeight.bold,
+);
