@@ -5,6 +5,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/painting.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'dart:html' as html;
 import 'banner_team.dart';
 import 'member_team.dart';
 
@@ -45,7 +46,7 @@ class Home extends StatelessWidget {
     final height = MediaQuery.of(context).size.height - appBar.toolbarHeight!;
 
     final buttonDownload = ElevatedButton(
-      onPressed: () {},
+      onPressed: downloadSetup,
       child: SizedBox(
         width: 140,
         height: 35,
@@ -168,7 +169,7 @@ class Home extends StatelessWidget {
                       text: '3 elementos funcionando: ',
                       style: emphasis,
                     ),
-                    TextSpan(text: 'dc fonte, resistor e conexão entre eles'),
+                    TextSpan(text: 'capacitor, dc fonte e resistor'),
                   ],
                 ),
               ),
@@ -236,10 +237,18 @@ class Home extends StatelessWidget {
     );
   }
 
+  // Support
   Future<void> _openLink() async {
     const url = 'https://www.buymeacoffee.com/electrophorus';
     if (await canLaunch(url)) {
       await launch(url);
     }
+  }
+
+  void downloadSetup() {
+    const url = 'https://github.com/HDG-Gabriel/Electrophorus/blob/Setup/Setup/Electrophorus.exe';
+    html.AnchorElement anchorElement =  html.AnchorElement(href: url);
+    anchorElement.download = url;
+    anchorElement.click();
   }
 }
