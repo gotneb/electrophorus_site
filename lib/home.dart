@@ -2,7 +2,6 @@ import 'package:electrophorus_site/constants.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/painting.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'dart:html' as html;
@@ -246,7 +245,7 @@ class Home extends StatelessWidget {
   }
 
   void downloadSetup() {
-    const url = 'https://github.com/HDG-Gabriel/Electrophorus/blob/Setup/Setup/Electrophorus.exe';
+    const url = 'https://github.com/HDG-Gabriel/Electrophorus/blob/main/Setup/Electrophorus.exe';
     html.AnchorElement anchorElement =  html.AnchorElement(href: url);
     anchorElement.download = url;
     anchorElement.click();
