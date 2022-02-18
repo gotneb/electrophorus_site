@@ -245,7 +245,7 @@ class Home extends StatelessWidget {
   }
 
   void downloadSetup() {
-    const url = 'https://github.com/HDG-Gabriel/Electrophorus/blob/main/Setup/Electrophorus.exe';
+    const url = 'https://github.com/gotneb/Electrophorus/blob/Installer/Installer/Electrophorus-x64.msix';
     html.AnchorElement anchorElement =  html.AnchorElement(href: url);
     anchorElement.download = url;
     anchorElement.click();
