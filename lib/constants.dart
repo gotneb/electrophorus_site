@@ -1,53 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Colors
 final backColor = Colors.black.withOpacity(0.92);
-final azul = Colors.blue[900];
 // Text styles
-const meetTeam = TextStyle(
+final electrophorus = GoogleFonts.signika(
   color: Colors.white,
-  letterSpacing: 1.2,
   fontSize: 22,
-);
-
-const name = TextStyle(
-  color: Colors.black,
-  fontSize: 20,
   fontWeight: FontWeight.bold,
 );
 
-const title = TextStyle(
+final top = GoogleFonts.signika(
   color: Colors.white,
-  fontSize: 28,
-  letterSpacing: 2,
+  fontSize: 20,
 );
 
-const download = TextStyle(
-  letterSpacing: 1.2,
+final title = GoogleFonts.quicksand(
+  color: Colors.white,
+  fontSize: 45,
+  decorationThickness: 4,
 );
 
-const lyrics = TextStyle(
-  color: Colors.grey,
-  fontSize: 18,
-  letterSpacing: 1.3,
+final text = GoogleFonts.signika(
+  color: Colors.greenAccent,
+  fontSize: 25,
 );
 
 // Duration
 const duration = Duration(seconds: 3);
 const pause = Duration(seconds: 5);
 
-const betaStyle = TextStyle(
+// Animated text
+final button = GoogleFonts.signika(
   color: Colors.white,
-  fontSize: 30,
-  letterSpacing: 2,
-);
-
-const buildStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 17,
-);
-
-const emphasis = TextStyle(
-  color: Colors.blue,
-  fontWeight: FontWeight.bold,
+  fontSize: 18,
 );

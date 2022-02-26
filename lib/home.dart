@@ -1,253 +1,171 @@
-import 'package:electrophorus_site/constants.dart';
-import 'package:flutter/gestures.dart';
+import 'package:electrophorus_site/constants.dart' as utils;
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import 'dart:html' as html;
-import 'banner_team.dart';
-import 'member_team.dart';
+//import 'package:url_launcher/url_launcher.dart';
+//import 'dart:html' as html;
 
 class Home extends StatelessWidget {
-  final appBar = AppBar(
-    backgroundColor: backColor,
-    toolbarHeight: 50,
-    title: Image.asset(
-      'assets/logo_white.png',
-      width: 90,
-      height: 45,
+  Home({Key? key}) : super(key: key);
+
+  final _downloadButton = InkWell(
+    onTap: () {},
+    child: Container(
+      width: 130.0,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          border: Border.all(
+        color: Colors.red,
+      )),
+      child: Row(
+        children: [
+          AnimatedTextKit(
+            pause: utils.pause,
+            repeatForever: true,
+            animatedTexts: [
+              TypewriterAnimatedText(
+                'Download',
+                speed: const Duration(milliseconds: 300),
+                textStyle: utils.button,
+                curve: Curves.decelerate,
+              ),
+            ],
+          ),
+          const Icon(
+            Icons.file_download_outlined,
+            color: Colors.white,
+          )
+        ],
+      ),
     ),
   );
-  static const classMates = <MemberTeam>[
-    MemberTeam(
-        name: 'Cárita',
-        image: 'assets/carita.jpeg',
-        degree: 'Engenharia Elétrica'),
-    MemberTeam(
-        name: 'Darlysson',
-        image: 'assets/darlysson.png',
-        degree: 'Engenharia da Computação'),
-    MemberTeam(
-        name: 'Gabriel',
-        image: 'assets/gabriel.jpg',
-        degree: 'Engenharia Elétrica'),
-    MemberTeam(
-        name: 'João',
-        image: 'assets/joao.png',
-        degree: 'Engenharia da Computação'),
-  ];
 
-  Home({Key? key}) : super(key: key);
+  final _supportButton = InkWell(
+    onTap: () {},
+    child: Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          border: Border.all(
+        color: Colors.green,
+      )),
+      child: Row(children: [
+        Text('Buy me a coffee', style: utils.button),
+        const SizedBox(width: 5),
+        const Icon(
+          Icons.interests_outlined,
+          color: Colors.white,
+        )
+      ]),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height - appBar.toolbarHeight!;
 
-    final buttonDownload = ElevatedButton(
-      onPressed: downloadSetup,
-      child: SizedBox(
-        width: 140,
-        height: 35,
-        child: Row(
-          children: const <Widget>[
-            Text('Download', style: download),
-            Spacer(),
-            Icon(Icons.download),
-          ],
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(12),
-        primary: azul,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-      ),
-    );
-
-    final body = SizedBox(
-      width: width,
-      height: 0.95 * height,
-      child: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Image.asset(
-            'assets/woman_fixing.jpg',
-            fit: BoxFit.fill,
-          ),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Image.asset('assets/bg2.jpg', width: width, fit: BoxFit.cover),
           Container(
-            width: width,
-            height: 0.95 * height,
-            padding: const EdgeInsets.all(32),
-            color: Colors.black.withOpacity(0.5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Simulador Eletrônico',
-                  style: title,
-                ),
-                const Spacer(),
-                buttonDownload,
-              ],
-            ),
+            color: Colors.black.withOpacity(0.7),
           ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            padding: const EdgeInsets.only(bottom: 100),
-            child: AnimatedTextKit(
-              repeatForever: true,
-              pause: pause,
-              animatedTexts: [
-                RotateAnimatedText(
-                  'Faça a montagem do seu próprio circuito',
-                  textStyle: lyrics,
-                  duration: duration,
-                ),
-                RotateAnimatedText(
-                  'Um simulador para circuitos elétricos disponível para Windows',
-                  textStyle: lyrics,
-                  duration: duration,
-                ),
-              ],
-            ),
-          ),
+          _buildBody()
         ],
       ),
     );
+  }
 
-    final about = Container(
-      width: width,
-      height: 0.1 * height,
-      color: azul,
-      child: const Center(
-        child: Text(
-          'Conheça nosso Time',
-          style: meetTeam,
-        ),
-      ),
-    );
-
-    final build = Container(
-      height: 250,
-      color: backColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset('assets/coffee.png', height: 210),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                color: azul,
-                child: Row(
-                  children: const <Widget>[
-                    Icon(Icons.bug_report, size: 40, color: Colors.white),
-                    SizedBox(width: 20),
-                    Text('BETA', style: betaStyle),
-                  ],
-                ),
-              ),
-              Row(
-                children: const <Widget>[
-                  Text(
-                    'Estamos constantemente atualizando-o',
-                    style: buildStyle,
-                  ),
-                  SizedBox(width: 5),
-                  Icon(Icons.emoji_emotions_outlined, color: Colors.white),
-                ],
-              ),
-              RichText(
-                text: const TextSpan(
-                  style: buildStyle,
-                  children: <TextSpan>[
-                    TextSpan(text: 'Atualmente temos '),
-                    TextSpan(
-                      text: '3 elementos funcionando: ',
-                      style: emphasis,
-                    ),
-                    TextSpan(text: 'capacitor, dc fonte e resistor'),
-                  ],
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                      style: buildStyle,
-                      children: <TextSpan>[
-                        const TextSpan(text: 'Gostou do nosso traballho? '),
-                        TextSpan(
-                          text: 'Buy me a coffee',
-                          style: emphasis.copyWith(
-                            decoration: TextDecoration.underline,
-                          ),
-                          recognizer: TapGestureRecognizer()..onTap = _openLink,
-                        ),
+  Widget _buildBody() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                TextButton(
+                    onPressed: () {},
+                    child: Text('Electrophorus', style: utils.electrophorus)),
+                const Spacer(),
+                TextButton(
+                    onPressed: () {}, child: Text('Demo', style: utils.top)),
+                TextButton(
+                    onPressed: () {}, child: Text("PDF's", style: utils.top)),
+                TextButton(
+                    onPressed: () {}, child: Text('Sobre', style: utils.top)),
+              ],
+            ),
+            SizedBox(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Simulador para Circuitos Elétricos',
+                      style: utils.title),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 25),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset('assets/logo_white_2.png', height: 100),
+                        const SizedBox(width: 35),
+                        Text(
+                            'Electrophorus é um projeto de código aberto disponível para Windows.',
+                            style: utils.text),
                       ],
                     ),
                   ),
-                  const SizedBox(width: 6),
-                  const Icon(Icons.local_cafe_outlined, color: Colors.blue),
+                  Row(
+                    children: [
+                      _downloadButton,
+                      const SizedBox(width: 20),
+                      _supportButton,
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      _customButtom(
+                          iconLink:
+                              'https://cdn-icons-png.flaticon.com/512/25/25231.png'),
+                      const SizedBox(width: 10),
+                      _customButtom(
+                          iconLink:
+                              'https://cdn-icons-png.flaticon.com/512/1384/1384060.png'),
+                    ],
+                  ),
                 ],
               ),
-            ],
-          ),
-        ],
-      ),
-    );
-
-    final team = Container(
-      width: 0.9 * width,
-      height: 0.30 * height,
-      margin: EdgeInsets.fromLTRB(0.05 * width, 8, 0, 16),
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: classMates.length,
-        separatorBuilder: (_, __) => Row(
-          children: <Widget>[
-            SizedBox(width: 0.05 * width),
-            Container(width: 2, height: 0.35 * height, color: Colors.grey[400]),
-            SizedBox(width: 0.05 * width),
-          ],
-        ),
-        itemBuilder: (_, i) => BannerTeam(classMates[i]),
-      ),
-    );
-
-    final list = SizedBox(
-      width: width,
-      height: height,
-      child: ListView(
-        children: <Widget>[
-          body,
-          build,
-          about,
-          team,
-        ],
-      ),
-    );
-
-    return Scaffold(
-      appBar: appBar,
-      body: list,
+            ),
+            const SizedBox(height: 30),
+          ]),
     );
   }
 
-  // Support
-  Future<void> _openLink() async {
-    const url = 'https://www.buymeacoffee.com/electrophorus';
-    if (await canLaunch(url)) {
-      await launch(url);
-    }
+  Widget _customButtom({required String iconLink}) {
+    return ElevatedButton(
+      onPressed: () {},
+      child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Image.network(
+            iconLink,
+            width: 20,
+          )),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.white,
+        shape: const CircleBorder(),
+      ),
+    );
   }
 
+  /*
   void downloadSetup() {
-    const url = 'https://github.com/gotneb/Electrophorus/blob/Installer/Installer/Electrophorus-x64.msix';
-    html.AnchorElement anchorElement =  html.AnchorElement(href: url);
+    const url =
+        'https://github.com/gotneb/Electrophorus/blob/Installer/Installer/Electrophorus-x64.msix';
+    html.AnchorElement anchorElement = html.AnchorElement(href: url);
     anchorElement.download = url;
     anchorElement.click();
   }
+  */
 }
