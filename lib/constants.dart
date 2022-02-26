@@ -26,6 +26,12 @@ final text = GoogleFonts.signika(
   fontSize: 25,
 );
 
+final credits = GoogleFonts.nunito(
+  color: Colors.white,
+  fontSize: 15,
+  fontWeight: FontWeight.w300,
+);
+
 // Duration
 const pause = Duration(seconds: 2);
 const speed = Duration(milliseconds: 300);

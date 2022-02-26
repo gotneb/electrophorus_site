@@ -1,4 +1,7 @@
+import 'package:electrophorus_site/views/about.dart';
+import 'package:electrophorus_site/views/guide.dart';
 import 'package:flutter/material.dart';
+import 'views/demo.dart';
 
 import 'home.dart';
 
@@ -14,8 +17,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Electrophorus',
+      routes: {
+        '/': (_) => Home(),
+        '/demo': (_) => DemoView(),
+        '/guide': (_) => GuideView(),
+        '/about': (_) => AboutView(),
+      },
       debugShowCheckedModeBanner: false,
-      home: Home(),
     );
   }
 }

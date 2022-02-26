@@ -1,63 +1,13 @@
 import 'package:electrophorus_site/constants.dart' as utils;
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //import 'package:url_launcher/url_launcher.dart';
 //import 'dart:html' as html;
 
 class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
-
-  final _downloadButton = InkWell(
-    onTap: () {},
-    child: Container(
-      width: 130.0,
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          border: Border.all(
-        color: Colors.red,
-      )),
-      child: Row(
-        children: [
-          AnimatedTextKit(
-            pause: utils.pause,
-            repeatForever: true,
-            animatedTexts: [
-              TypewriterAnimatedText(
-                'Download',
-                speed: utils.speed,
-                textStyle: utils.button,
-                curve: Curves.decelerate,
-              ),
-            ],
-          ),
-          const Icon(
-            Icons.file_download_outlined,
-            color: Colors.white,
-          )
-        ],
-      ),
-    ),
-  );
-
-  final _supportButton = InkWell(
-    onTap: () {},
-    child: Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          border: Border.all(
-        color: Colors.green,
-      )),
-      child: Row(children: [
-        Text('Buy me a coffee', style: utils.button),
-        const SizedBox(width: 15),
-        const Icon(
-          Icons.interests_outlined,
-          color: Colors.white,
-        )
-      ]),
-    ),
-  );
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,13 +20,68 @@ class Home extends StatelessWidget {
           Container(
             color: Colors.black.withOpacity(0.7),
           ),
-          _buildBody()
+          _buildBody(context),
         ],
       ),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
+    final _downloadButton = InkWell(
+      onTap: () {
+        _openDownload();
+      },
+      child: Container(
+        width: 130.0,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            border: Border.all(
+          color: Colors.red,
+        )),
+        child: Row(
+          children: [
+            AnimatedTextKit(
+              pause: utils.pause,
+              repeatForever: true,
+              animatedTexts: [
+                TypewriterAnimatedText(
+                  'Download',
+                  speed: utils.speed,
+                  textStyle: utils.button,
+                  curve: Curves.decelerate,
+                ),
+              ],
+            ),
+            const Icon(
+              Icons.file_download_outlined,
+              color: Colors.white,
+            )
+          ],
+        ),
+      ),
+    );
+
+    final _supportButton = InkWell(
+      onTap: () {
+        _openSupport();
+      },
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            border: Border.all(
+          color: Colors.green,
+        )),
+        child: Row(children: [
+          Text('Buy me a coffee', style: utils.button),
+          const SizedBox(width: 15),
+          const Icon(
+            Icons.interests_outlined,
+            color: Colors.white,
+          )
+        ]),
+      ),
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
       child: Column(
@@ -90,11 +95,20 @@ class Home extends StatelessWidget {
                     child: Text('Electrophorus', style: utils.electrophorus)),
                 const Spacer(),
                 TextButton(
-                    onPressed: () {}, child: Text('Demo', style: utils.top)),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/demo');
+                    },
+                    child: Text('Demo', style: utils.top)),
                 TextButton(
-                    onPressed: () {}, child: Text("PDF's", style: utils.top)),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/guide');
+                    },
+                    child: Text("PDF's", style: utils.top)),
                 TextButton(
-                    onPressed: () {}, child: Text('Sobre', style: utils.top)),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/demo');
+                    },
+                    child: Text('Sobre', style: utils.top)),
               ],
             ),
             SizedBox(
@@ -111,7 +125,7 @@ class Home extends StatelessWidget {
                         Image.asset('assets/logo_white_2.png', height: 100),
                         const SizedBox(width: 35),
                         Text(
-                            'Electrophorus é um projeto de código aberto disponível para Windows.',
+                            'Electrophorus é um projeto de código aberto disponível para Windows.\nAtualmente em desenvolvimento.',
                             style: utils.text),
                       ],
                     ),
@@ -127,8 +141,12 @@ class Home extends StatelessWidget {
                   Row(
                     children: [
                       _customButtom(
-                          iconLink:
-                              'https://cdn-icons-png.flaticon.com/512/25/25231.png'),
+                        iconLink:
+                            'https://cdn-icons-png.flaticon.com/512/25/25231.png',
+                        onPressed: () {
+                          _openSource();
+                        },
+                      ),
                       _customButtom(
                           iconLink:
                               'https://cdn-icons-png.flaticon.com/512/1384/1384060.png'),
@@ -137,14 +155,23 @@ class Home extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 30),
+            Align(
+              alignment: Alignment.center,
+              child: Text('2020 - 2022 Desenvolvedores do Electrophorus',
+                  style: utils.credits),
+            ),
           ]),
     );
   }
 
-  Widget _customButtom({required String iconLink}) {
+  Widget _customButtom({
+    required String iconLink,
+    Function()? onPressed,
+  }) {
+    onPressed ??= () {};
+
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       child: Padding(
           padding: const EdgeInsets.all(15),
           child: Image.network(
@@ -156,6 +183,31 @@ class Home extends StatelessWidget {
         shape: const CircleBorder(),
       ),
     );
+  }
+
+  // Support
+  Future<void> _openSupport() async {
+    const url = 'https://www.buymeacoffee.com/electrophorus';
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
+  }
+
+  // Source code
+  Future<void> _openSource() async {
+    const url = 'https://github.com/gotneb/Electrophorus';
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
+  }
+
+  // Dowload program
+  Future<void> _openDownload() async {
+    const url =
+        'https://www.mediafire.com/file/gsqeflyd63ief5s/Electrophorus-x64.msix/file';
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
   }
 
   /*
