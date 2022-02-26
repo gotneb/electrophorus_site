@@ -1,4 +1,3 @@
-import 'package:electrophorus_site/my_custom_scroll_behavior.dart';
 import 'package:flutter/material.dart';
 
 import 'home.dart';
@@ -16,7 +15,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Electrophorus',
       debugShowCheckedModeBanner: false,
-      scrollBehavior: MyCustomScrollBehavior(),
       home: Home(),
     );
   }

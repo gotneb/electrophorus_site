@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
             animatedTexts: [
               TypewriterAnimatedText(
                 'Download',
-                speed: const Duration(milliseconds: 300),
+                speed: utils.speed,
                 textStyle: utils.button,
                 curve: Curves.decelerate,
               ),
@@ -50,7 +50,7 @@ class Home extends StatelessWidget {
       )),
       child: Row(children: [
         Text('Buy me a coffee', style: utils.button),
-        const SizedBox(width: 5),
+        const SizedBox(width: 15),
         const Icon(
           Icons.interests_outlined,
           color: Colors.white,
@@ -104,7 +104,7 @@ class Home extends StatelessWidget {
                   Text('Simulador para Circuitos Elétricos',
                       style: utils.title),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 25),
+                    padding: const EdgeInsets.symmetric(vertical: 35),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -129,7 +129,6 @@ class Home extends StatelessWidget {
                       _customButtom(
                           iconLink:
                               'https://cdn-icons-png.flaticon.com/512/25/25231.png'),
-                      const SizedBox(width: 10),
                       _customButtom(
                           iconLink:
                               'https://cdn-icons-png.flaticon.com/512/1384/1384060.png'),
@@ -147,10 +146,10 @@ class Home extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {},
       child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(15),
           child: Image.network(
             iconLink,
-            width: 20,
+            width: 25,
           )),
       style: ElevatedButton.styleFrom(
         primary: Colors.white,

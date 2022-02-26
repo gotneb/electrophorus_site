@@ -27,8 +27,8 @@ final text = GoogleFonts.signika(
 );
 
 // Duration
-const duration = Duration(seconds: 3);
-const pause = Duration(seconds: 5);
+const pause = Duration(seconds: 2);
+const speed = Duration(milliseconds: 300);
 
 // Animated text
 final button = GoogleFonts.signika(
