@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-//import 'package:url_launcher/url_launcher.dart';
-//import 'dart:html' as html;
-
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset('assets/bg2.jpg', width: width, fit: BoxFit.cover),
+          Image.asset(
+            'assets/bg1.jpg',
+            width: width,
+            height: height,
+            fit: BoxFit.fill,
+          ),
           Container(
             color: Colors.black.withOpacity(0.7),
           ),
@@ -28,9 +31,7 @@ class Home extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     final _downloadButton = InkWell(
-      onTap: () {
-        _openDownload();
-      },
+      onTap: () {},
       child: Container(
         width: 130.0,
         padding: const EdgeInsets.all(8),
@@ -41,6 +42,9 @@ class Home extends StatelessWidget {
         child: Row(
           children: [
             AnimatedTextKit(
+              onTap: () {
+                _openDownload();
+              },
               pause: utils.pause,
               repeatForever: true,
               animatedTexts: [
@@ -75,7 +79,7 @@ class Home extends StatelessWidget {
           Text('Buy me a coffee', style: utils.button),
           const SizedBox(width: 15),
           const Icon(
-            Icons.interests_outlined,
+            Icons.favorite_outlined,
             color: Colors.white,
           )
         ]),
@@ -106,7 +110,7 @@ class Home extends StatelessWidget {
                     child: Text("PDF's", style: utils.top)),
                 TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/demo');
+                      Navigator.pushNamed(context, '/about');
                     },
                     child: Text('Sobre', style: utils.top)),
               ],
@@ -122,11 +126,13 @@ class Home extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset('assets/logo_white_2.png', height: 100),
+                        Image.asset('assets/logo.png', height: 110),
                         const SizedBox(width: 35),
-                        Text(
-                            'Electrophorus é um projeto de código aberto disponível para Windows.\nAtualmente em desenvolvimento.',
-                            style: utils.text),
+                        Flexible(
+                          child: Text(
+                              'Electrophorus é um projeto de código aberto disponível para Windows.\nAtualmente em desenvolvimento.',
+                              style: utils.text),
+                        ),
                       ],
                     ),
                   ),
@@ -137,7 +143,7 @@ class Home extends StatelessWidget {
                       _supportButton,
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Row(
                     children: [
                       _customButtom(
@@ -173,10 +179,10 @@ class Home extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
           child: Image.network(
             iconLink,
-            width: 25,
+            width: 30,
           )),
       style: ElevatedButton.styleFrom(
         primary: Colors.white,
